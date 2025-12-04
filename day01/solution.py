@@ -1,4 +1,4 @@
-from common.io import read_input
+from pathlib import Path
 
 DIAL_LEN = 100
 
@@ -58,6 +58,16 @@ def part2(lines):
 
 
     return ans
+
+def read_input(default_path: str = "input.txt") -> str:
+    """Read from stdin if available, otherwise from the given file path."""
+
+    # fallback: read local file
+    file_path = Path(default_path)
+    if file_path.exists():
+        return file_path.read_text().rstrip("\n")
+
+    raise FileNotFoundError(f"No stdin data and file not found: {default_path}")
 
 if __name__ == "__main__":
     input_data = read_input("input.txt")
